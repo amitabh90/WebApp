@@ -36,7 +36,7 @@ parameters:
 
 steps:
 - task: AzurePowerShell@5
-  displayName: create - web APP
+  displayName: create - Web APP
   condition: succeeded()
   inputs:
     azureSubscription: ${{parameters.azureSubscription }}

@@ -83,13 +83,6 @@
                 "description": "Optional. If true, ApplicationInsights will be configured for the Function App."
             }
         },
-        "lockForDeletion": {
-            "type": "bool",
-            "defaultValue": true,
-            "metadata": {
-                "description": "Optional. Switch to lock Function App from deletion."
-            }
-        },
         "tags": {
             "type": "object",
             "defaultValue": {
@@ -157,19 +150,6 @@
                     "properties": {
                         "APPINSIGHTS_INSTRUMENTATIONKEY": "[if(parameters('enableMonitoring'), reference(concat('microsoft.insights/components/',variables('appInsightsName')), '2015-05-01').InstrumentationKey, json('null'))]",
                         "APPLICATIONINSIGHTS_CONNECTION_STRING": "[if(parameters('enableMonitoring'), reference(concat('microsoft.insights/components/',variables('appInsightsName')), '2015-05-01').ConnectionString, json('null'))]"
-                    }
-                },
-                {
-                    "type": "providers/locks",
-                    "apiVersion": "2016-09-01",
-                    "condition": "[parameters('lockForDeletion')]",
-                    "name": "Microsoft.Authorization/webAppDoNotDelete",
-                    "dependsOn": [
-                        "[concat('Microsoft.Web/sites/', parameters('webAppName'))]"
-                    ],
-                    "comments": "Resource lock on web App",
-                    "properties": {
-                        "level": "CannotDelete"
                     }
                 }
             ]
